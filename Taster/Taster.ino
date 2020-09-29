@@ -9,7 +9,7 @@
 #define LED 2         //Grüne LED Pin 2
 #define Taster 10     //Taster auf Pin 10
 
-boolean eingabe = 0;  //Taster ist nicht gedrückt
+boolean statusLed = 0;  //Taster ist nicht gedrückt
 
 void setup()
 {
@@ -21,15 +21,18 @@ void setup()
 
 void loop()
 {
-  eingabe = digitalRead(Taster);
-  digitalWrite(LED, eingabe);
+  if (digitalRead(Taster) == 1)
+  {
+    if (statusLed == 1)
+    {
+      digitalWrite(LED, LOW);
+      statusLed = 0;
+    }
+    else
+    {
+      digitalWrite(LED, HIGH);
+      statusLed = 1;
+    }
 
-  if (eingabe == 1)
-  {
-    Serial.println("LED an");
-  }
-  else
-  {
-    Serial.println("LED aus");
   }
 }
